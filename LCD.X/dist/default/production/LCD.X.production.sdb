@@ -1,0 +1,140 @@
+[p LITE_MODE AUTOSTATIC PIC14 PICREGULAR PICMID ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F887 ]
+[d frameptr 6 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.42\sources\pic\eeprom.c
+[v _eecpymem eecpymem `(v  1 e 1 0 ]
+"39
+[v _memcpyee memcpyee `(v  1 e 1 0 ]
+"18 Z:\Projects\KK\LCD.X\main_LCD.c
+[v _Init Init `(v  1 e 1 0 ]
+"30
+[v _lcd_reset lcd_reset `(v  1 e 1 0 ]
+"48
+[v _lcd_cmd lcd_cmd `(v  1 e 1 0 ]
+"60
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+"73
+[v _lcd_data lcd_data `(v  1 e 1 0 ]
+"84
+[v _lcd_send_string lcd_send_string `(v  1 e 1 0 ]
+"89
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+"108
+[v _lcd_out lcd_out `(v  1 e 1 0 ]
+"131
+[v _main main `(v  1 e 1 0 ]
+"164 C:\Program Files (x86)\Microchip\xc8\v1.42\include\pic16f887.h
+[v _PORTA PORTA `VEuc  1 e 1 @5 ]
+"226
+[v _PORTB PORTB `VEuc  1 e 1 @6 ]
+"350
+[v _PORTD PORTD `VEuc  1 e 1 @8 ]
+"412
+[v _PORTE PORTE `VEuc  1 e 1 @9 ]
+"1414
+[v _TRISA TRISA `VEuc  1 e 1 @133 ]
+"1476
+[v _TRISB TRISB `VEuc  1 e 1 @134 ]
+"1538
+[v _TRISC TRISC `VEuc  1 e 1 @135 ]
+"1600
+[v _TRISD TRISD `VEuc  1 e 1 @136 ]
+"1662
+[v _TRISE TRISE `VEuc  1 e 1 @137 ]
+"1860
+[v _OSCCON OSCCON `VEuc  1 e 1 @143 ]
+"3385
+[v _ANSEL ANSEL `VEuc  1 e 1 @392 ]
+"3447
+[v _ANSELH ANSELH `VEuc  1 e 1 @393 ]
+"131 Z:\Projects\KK\LCD.X\main_LCD.c
+[v _main main `(v  1 e 1 0 ]
+{
+"136
+[v main@text3 text3 `[17]uc  1 a 17 38 ]
+"135
+[v main@text2 text2 `[17]uc  1 a 17 21 ]
+"134
+[v main@text1 text1 `[17]uc  1 a 17 4 ]
+"133
+[v main@text text `[2]uc  1 a 2 56 ]
+"132
+[v main@i i `uc  1 a 1 55 ]
+[v main@F1692 F1692 `[2]uc  1 s 2 F1692 ]
+"133
+[v main@F1694 F1694 `[17]uc  1 s 17 F1694 ]
+"134
+[v main@F1696 F1696 `[17]uc  1 s 17 F1696 ]
+"135
+[v main@F1698 F1698 `[17]uc  1 s 17 F1698 ]
+"172
+} 0
+"108
+[v _lcd_out lcd_out `(v  1 e 1 0 ]
+{
+[v lcd_out@row row `uc  1 a 1 wreg ]
+"110
+[v lcd_out@position position `uc  1 a 1 10 ]
+[v lcd_out@result result `uc  1 a 1 9 ]
+"108
+[v lcd_out@row row `uc  1 a 1 wreg ]
+[v lcd_out@column column `uc  1 p 1 5 ]
+[v lcd_out@str str `*.4uc  1 p 1 6 ]
+[v lcd_out@length length `uc  1 p 1 7 ]
+"110
+[v lcd_out@row row `uc  1 a 1 11 ]
+"122
+} 0
+"84
+[v _lcd_send_string lcd_send_string `(v  1 e 1 0 ]
+{
+[v lcd_send_string@str str `*.4uc  1 a 1 wreg ]
+[v lcd_send_string@str str `*.4uc  1 a 1 wreg ]
+[v lcd_send_string@length length `uc  1 p 1 2 ]
+[v lcd_send_string@str str `*.4uc  1 a 1 4 ]
+"87
+} 0
+"73
+[v _lcd_data lcd_data `(v  1 e 1 0 ]
+{
+[v lcd_data@dat dat `uc  1 a 1 wreg ]
+[v lcd_data@dat dat `uc  1 a 1 wreg ]
+"75
+[v lcd_data@dat dat `uc  1 a 1 1 ]
+"81
+} 0
+"60
+[v _lcd_init lcd_init `(v  1 e 1 0 ]
+{
+"67
+} 0
+"30
+[v _lcd_reset lcd_reset `(v  1 e 1 0 ]
+{
+"46
+} 0
+"89
+[v _lcd_clear lcd_clear `(v  1 e 1 0 ]
+{
+"93
+} 0
+"48
+[v _lcd_cmd lcd_cmd `(v  1 e 1 0 ]
+{
+[v lcd_cmd@cmd cmd `uc  1 a 1 wreg ]
+[v lcd_cmd@cmd cmd `uc  1 a 1 wreg ]
+"50
+[v lcd_cmd@cmd cmd `uc  1 a 1 1 ]
+"56
+} 0
+"18
+[v _Init Init `(v  1 e 1 0 ]
+{
+"24
+} 0

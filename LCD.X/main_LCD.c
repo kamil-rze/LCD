@@ -10,8 +10,7 @@
 #include <xc.h>
 #include "Fuses.h"
 #include <string.h>
-//#include <stdint.h>
-
+#include <stdlib.h>
 
 
 #define RS  0x10
@@ -27,8 +26,6 @@ void Init(void){
     PORTA = PORTB = PORTD = PORTD = PORTE = 0x00;
     TRISA = TRISB = TRISC = TRISD = TRISE = 0x00;
 }
-
-
 
 
 
@@ -49,6 +46,8 @@ LCD_Port = 0x02 + E;
 LCD_Port = 0x02;
 __delay_ms(1);
 }
+
+
 
 void lcd_cmd (int cmd)
 {
@@ -73,8 +72,6 @@ lcd_cmd(0x80); // Address DDRAM with 0 offset 80h.
 
 
 
-
-
 void lcd_data ( char dat)
 {
 LCD_Port = (unsigned)(((dat >> 4) & 0x0F) | E |RS);
@@ -86,11 +83,6 @@ __delay_us(200);
 }
 
 
-void lcd_send_string( char *str, char length)
-{
-    while(length--) lcd_data(*str++);
-}
-
 
 void lcd_send_string1(char *str)
 {
@@ -98,16 +90,22 @@ void lcd_send_string1(char *str)
     while(length--) lcd_data(*str++);
 }
 
+
+
 void lcd_clear()
 {
     lcd_cmd(0x01);
     __delay_us(1200);
 }
 
+
+
 void lcd_return_home()
 {
     lcd_cmd(0x02);
 }
+
+
 
 int lcd_cursor_position(int position)
 {
@@ -117,7 +115,9 @@ int lcd_cursor_position(int position)
     return result;
 }
 
-void lcd_out(char row,  char column,  char *str,  char length)
+
+
+void lcd_out(char row,  char column,  char *str)
 {
     char result = 1, position = 0;
     
@@ -130,8 +130,10 @@ void lcd_out(char row,  char column,  char *str,  char length)
             lcd_cmd((unsigned char)(position + 0x80 - 1));                   // Set address
         }
     }
-    lcd_send_string(str, length);
+    lcd_send_string1(str);
 }
+
+
 
 void lcd_entry_mode_set(char inc, char shift)
 {
@@ -140,24 +142,22 @@ void lcd_entry_mode_set(char inc, char shift)
     lcd_cmd((0x04) | (inc << 1) | shift);
 }
 
-void lcd_int_to_str(char row, char column, int number, char digits, char zero_p)
-{
-    
-}
 
 
 void main(void) {
-    char i = 0;
+    int i = 32767;
     const char text1[] = "L1 - Czesc Kuba!";
     const char text2[] = "L2 - Czesc Kuba!";
     const char text3[] = "L3 - Czesc Kuba!";
     const char text4[] = "L4 - Czesc Kuba!";
     const char text5[] = "11111111112222222222333333333344444444445555555555666666666677777777778888888888";
+    char text[];
     Init();
     lcd_init();
     lcd_clear();
     __delay_ms(500);
-    lcd_send_string1(text1);        
+    itoa(text, i, 10);
+    lcd_out(1,1,text);        
   
     while(1);
     return;

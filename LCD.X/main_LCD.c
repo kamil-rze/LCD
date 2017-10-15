@@ -10,6 +10,7 @@
 #include <xc.h>
 #include "Fuses.h"
 #include <string.h>
+//#include <stdint.h>
 
 
 
@@ -138,6 +139,12 @@ void lcd_entry_mode_set(char inc, char shift)
     if(shift) shift = 1;
     lcd_cmd((0x04) | (inc << 1) | shift);
 }
+
+void lcd_int_to_str(char row, char column, int number, char digits, char zero_p)
+{
+    
+}
+
 
 void main(void) {
     char i = 0;

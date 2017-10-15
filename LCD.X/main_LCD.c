@@ -9,9 +9,13 @@
 
 #include <xc.h>
 #include "Fuses.h"
+#include <string.h>
+
+
 
 #define RS  0x10
 #define E   0x20
+#define LCD_Port    PORTD
 
 
 
@@ -29,28 +33,28 @@ void Init(void){
 
 void lcd_reset()
 {
-PORTD = 0xFF;
+LCD_Port = 0xFF;
 __delay_ms(20);
-PORTD = 0x03 + E;
-PORTD = 0x03;
+LCD_Port = 0x03 + E;
+LCD_Port = 0x03;
 __delay_ms(10);
-PORTD = 0x03 + E;
-PORTD = 0x03;
+LCD_Port = 0x03 + E;
+LCD_Port = 0x03;
 __delay_ms(1);
-PORTD = 0x03 + E;
-PORTD = 0x03;
+LCD_Port = 0x03 + E;
+LCD_Port = 0x03;
 __delay_ms(1);
-PORTD = 0x02 + E;
-PORTD = 0x02;
+LCD_Port = 0x02 + E;
+LCD_Port = 0x02;
 __delay_ms(1);
 }
 
-void lcd_cmd (char cmd)
+void lcd_cmd (int cmd)
 {
-PORTD = (unsigned)((cmd >> 4) & 0x0F) | E;
-PORTD = (unsigned)((cmd >> 4) & 0x0F);
-PORTD = (unsigned)(cmd & 0x0F) | E;
-PORTD = (unsigned)(cmd & 0x0F);
+LCD_Port = (unsigned)((cmd >> 4) & 0x000F) | E;
+LCD_Port = (unsigned)((cmd >> 4) & 0x000F);
+LCD_Port = (unsigned)(cmd & 0x000F) | E;
+LCD_Port = (unsigned)(cmd & 0x000F);
 __delay_us(200);
 __delay_us(200);
 }
@@ -70,19 +74,26 @@ lcd_cmd(0x80); // Address DDRAM with 0 offset 80h.
 
 
 
-void lcd_data (unsigned char dat)
+void lcd_data ( char dat)
 {
-PORTD = (unsigned)(((dat >> 4) & 0x0F) | E |RS);
-PORTD = (unsigned)(((dat >> 4) & 0x0F) | RS);
-PORTD = (unsigned)((dat & 0x0F)|E|RS);
-PORTD = (unsigned)((dat & 0x0F)|RS);
+LCD_Port = (unsigned)(((dat >> 4) & 0x0F) | E |RS);
+LCD_Port = (unsigned)(((dat >> 4) & 0x0F) | RS);
+LCD_Port = (unsigned)((dat & 0x0F)|E|RS);
+LCD_Port = (unsigned)((dat & 0x0F)|RS);
 __delay_us(200);
 __delay_us(200);
 }
 
 
-void lcd_send_string(unsigned char *str, char length)
+void lcd_send_string( char *str, char length)
 {
+    while(length--) lcd_data(*str++);
+}
+
+
+void lcd_send_string1(char *str)
+{
+    char length = strlen(str);
     while(length--) lcd_data(*str++);
 }
 
@@ -97,25 +108,25 @@ void lcd_return_home()
     lcd_cmd(0x02);
 }
 
-char lcd_cursor_position(unsigned char position)
+int lcd_cursor_position(int position)
 {
-    char result = 1;
-    if (position >= 0 && position <= 80) lcd_cmd(position + 0x80);
+    int result = 1;
+    if (position >= 0 && position < 80) lcd_cmd((unsigned char)(position + 0x80));
     else result = 0;
     return result;
 }
 
-void lcd_out(unsigned char row, unsigned char column, unsigned char *str, unsigned char length)
+void lcd_out(char row,  char column,  char *str,  char length)
 {
     char result = 1, position = 0;
     
     if(row >= 1 && row <= 4){
         if(column >= 1 && column <=20){
             if(row == 1) position = column;
-            else if (row == 2) position = 40 + column;
-            else if (row == 3) position = 20 + column;
-            else if (row == 4) position = 60 + column;
-            lcd_cmd(position + 0x80 - 1);                   // Set address
+            else if (row == 2) position = (unsigned char) (0x40 + column);
+            else if (row == 3) position = (unsigned char) (0x14 + column);
+            else if (row == 4) position = (unsigned char) (0x54 + column);
+            lcd_cmd((unsigned char)(position + 0x80 - 1));                   // Set address
         }
     }
     lcd_send_string(str, length);
@@ -130,36 +141,17 @@ void lcd_entry_mode_set(char inc, char shift)
 
 void main(void) {
     char i = 0;
-    unsigned char text[] = "L";
-    unsigned char text1[] = "L2 - Czesc Kuba!";
-    unsigned char text2[] = "L3 - Czesc Kuba!";
-    unsigned char text3[] = "L4 - Czesc Kuba!";
+    const char text1[] = "L1 - Czesc Kuba!";
+    const char text2[] = "L2 - Czesc Kuba!";
+    const char text3[] = "L3 - Czesc Kuba!";
+    const char text4[] = "L4 - Czesc Kuba!";
+    const char text5[] = "11111111112222222222333333333344444444445555555555666666666677777777778888888888";
     Init();
     lcd_init();
     lcd_clear();
-    lcd_out(2,10,text,1);
-
-//    lcd_cursor_position(0x40);
-//    lcd_send_string(text1,16);    
-//    __delay_ms(1500);
-//    lcd_clear();
-//    lcd_cursor_position(0x14);
-//    lcd_send_string(text2,16);    
-//    __delay_ms(1500);
-//    lcd_clear();
-//    lcd_cursor_position(40);
-//    lcd_send_string(text3,16);    
-//    __delay_ms(1500);
-    
-   
-    
-    
-//    lcd_entry_mode_set(0,0);
-//    lcd_data(0x41); 
-//    lcd_data(0x42);
-//    lcd_data(0x43);
-//    __delay_ms(1500);
-//    lcd_clear();
+    __delay_ms(500);
+    lcd_send_string1(text1);        
+  
     while(1);
     return;
 }
